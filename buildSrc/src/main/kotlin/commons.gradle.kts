@@ -1,5 +1,6 @@
 plugins {
   id("java")
+  id("java-test-fixtures")
   id("maven-publish")
 }
 
@@ -12,7 +13,9 @@ repositories {
 }
 
 dependencies {
-  testRuntimeOnly("org.junit.platform:junit-platform-launcher:${providers.gradleProperty("junit.platform.version").get()}")
+  testFixturesApi(platform("org.junit:junit-bom:${providers.gradleProperty("junit.version").get()}"))
+  testFixturesApi("org.junit.platform:junit-platform-suite")
+  testFixturesApi("org.junit.jupiter:junit-jupiter")
 }
 
 java {
@@ -21,4 +24,5 @@ java {
 
 tasks.withType<Test> {
   useJUnitPlatform()
+  systemProperty("cucumber.junit-platform.naming-strategy", "long")
 }

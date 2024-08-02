@@ -16,7 +16,7 @@ import reactor.test.StepVerifier;
 import java.util.List;
 
 @SpringBootTest()
-class WishListServiceTests {
+class WishlistUnitTests {
 
   @Autowired
   ReactiveMongoTemplate reactiveMongoTemplate;
