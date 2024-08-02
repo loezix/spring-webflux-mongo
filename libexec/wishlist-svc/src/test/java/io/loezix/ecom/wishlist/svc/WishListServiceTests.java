@@ -54,6 +54,13 @@ class WishListServiceTests {
       .as(StepVerifier::create)
       .expectNextCount(2)
       .verifyComplete();
+
+    wishlistService.addWishToWishlist("123456789", "1234")
+      .map(Wishlist::wishes)
+      .flatMapMany(Flux::fromIterable)
+      .as(StepVerifier::create)
+      .expectNextCount(2)
+      .verifyComplete();
   }
 
   @Test
