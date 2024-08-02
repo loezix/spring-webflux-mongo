@@ -1,0 +1,128 @@
+openapi: "3.0.0"
+info:
+  title: ECOM Wishlist
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /customer/{customerId}/wishlist:
+    get:
+      summary: Lista todos produtos desejados por um cliente
+      operationId: customerWishlist
+      parameters:
+        - in: path
+          name: customerId
+          schema:
+            type: string
+          required: true
+          description: Código de identificação de um cliente
+      responses:
+        '200':
+          description: Uma lista de desejos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Wishlist"
+  /customer/{customerId}/wishlist/wishes/add:
+      patch:
+        summary: Adiciona um desejo à lista de desejos do cliente
+        operationId: addWishToWishlist
+        parameters:
+          - in: path
+            name: customerId
+            schema:
+              type: string
+            required: true
+            description: Código de identificação de um cliente
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productId:
+                    type: string
+        responses:
+          '200':
+            description: Lista atualizada de desejos do cliente.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Wishlist"
+  /customer/{customerId}/wishlist/wishes/remove:
+      patch:
+        summary: Remove um desejo da lista de desejos do cliente
+        operationId: removeWishFromWishlist
+        parameters:
+          - in: path
+            name: customerId
+            schema:
+              type: string
+            required: true
+            description: Código de identificação de um cliente
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productId:
+                    type: string
+        responses:
+          '200':
+            description: Lista atualizada de desejos do cliente.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Wishlist"
+  /customer/{customerId}/wishlist/wishes/hasWishedProduct:
+      get:
+        summary: Remove um desejo da lista de desejos do cliente
+        operationId: hasProductOnWishlist
+        parameters:
+          - in: path
+            name: customerId
+            schema:
+              type: string
+            required: true
+            description: Código de identificação de um cliente
+          - in: query
+            name: productId
+            schema:
+              type: string
+            required: true
+            description: Código do produto que deve ser buscado na lista de desejos do cliente.
+        responses:
+          '200':
+            description: Lista de desejos do cliente atualizada
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Message"
+components:
+  schemas:
+    Wish:
+      type: object
+      properties:
+        wishId:
+          type: string
+        date:
+          type: integer
+          format: int64
+        productId:
+          type: string
+    Wishlist:
+      type: object
+      properties:
+        wishes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Wish'
+    Message:
+      type: object
+      properties:
+        message:
+          type: string
+
