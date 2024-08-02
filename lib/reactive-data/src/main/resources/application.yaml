@@ -1,0 +1,4 @@
+ecom:
+  data:
+    database: "example"
+    connection-string: "mongodb://root:root@mongo.lzx.corp:27017"

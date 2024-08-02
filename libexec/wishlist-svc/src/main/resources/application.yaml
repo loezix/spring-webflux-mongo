@@ -1,0 +1,4 @@
+ecom:
+  data:
+    connection-string: "mongodb://root:root@mongo.lzx.corp:27017"
+    database: "wishlist"
