@@ -3,6 +3,7 @@ package io.loezix.ecom.wishlist.api.handlers;
 import io.loezix.ecom.web.types.Message;
 import io.loezix.ecom.wishlist.domain.Wish;
 import io.loezix.ecom.wishlist.svc.services.WishlistService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -30,10 +31,15 @@ public class WishlistHandler {
   }
 
   public Mono<ServerResponse> handleAddWishToWishlist(ServerRequest request) {
-    return request.bodyToMono(Wish.class)
+        return service.customerWishlist(request.pathVariable(CUSTOMER_ID))
+      .flatMap(wishlist -> {
+        return wishlist.wishes().size() >= 20
+          ? ServerResponse.status(HttpStatus.FORBIDDEN).bodyValue(new Message("Limite de desejos por cliente excedido"))
+          : request.bodyToMono(Wish.class)
       .flatMap(wish -> service.addWishToWishlist(request.pathVariable(CUSTOMER_ID), wish.productId())
-        .flatMap(wishlist -> ok().contentType(MediaType.APPLICATION_JSON).bodyValue(wishlist))
-        .switchIfEmpty(notFound().build()))
+        .flatMap(wishlist1 -> ok().contentType(MediaType.APPLICATION_JSON).bodyValue(wishlist1))
+        .switchIfEmpty(notFound().build()));
+        })
       ;
   }
 
@@ -53,4 +59,5 @@ public class WishlistHandler {
       .orElse(badRequest().bodyValue(new Message("Necessário parâmetro de pesquisa `productId`")))
       ;
   }
+
 }
