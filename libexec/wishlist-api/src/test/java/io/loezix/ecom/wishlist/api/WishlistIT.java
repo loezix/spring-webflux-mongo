@@ -1,18 +1,16 @@
 package io.loezix.ecom.wishlist.api;
 
-import io.cucumber.spring.CucumberContextConfiguration;
 import io.loezix.ecom.web.types.Message;
 import io.loezix.ecom.wishlist.api.components.Router;
 import io.loezix.ecom.wishlist.domain.Wish;
 import io.loezix.ecom.wishlist.domain.Wishlist;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Component;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-@CucumberContextConfiguration
-@SpringBootTest(classes = Main.class)
-class WishlistIntegrationTest {
+@Component
+public class WishlistIT {
 
   @Autowired
   private Router router;

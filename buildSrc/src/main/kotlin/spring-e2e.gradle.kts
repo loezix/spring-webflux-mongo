@@ -3,7 +3,9 @@ plugins {
 }
 
 dependencies {
-  testFixturesApi("io.cucumber:cucumber-java:${providers.gradleProperty("cucumber.version").get()}")
-  testFixturesApi("io.cucumber:cucumber-junit:${providers.gradleProperty("cucumber.version").get()}")
-  testFixturesApi("io.cucumber:cucumber-spring:${providers.gradleProperty("cucumber.version").get()}")
+
+  testFixturesApi(platform("io.cucumber:cucumber-bom:${providers.gradleProperty("cucumber.version").get()}"))
+  testFixturesApi("io.cucumber:cucumber-java")
+  testFixturesApi("io.cucumber:cucumber-junit-platform-engine")
+  testFixturesApi("io.cucumber:cucumber-spring")
 }

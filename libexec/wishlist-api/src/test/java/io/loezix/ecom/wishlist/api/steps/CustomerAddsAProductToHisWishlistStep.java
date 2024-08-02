@@ -1,26 +1,27 @@
-package io.loezix.ecom.wishlist.api;
+package io.loezix.ecom.wishlist.api.steps;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
 import io.github.thibaultmeyer.cuid.CUID;
+import io.loezix.ecom.wishlist.api.WishlistIT;
 import io.loezix.ecom.wishlist.domain.Wishlist;
 import org.junit.jupiter.api.Assertions;
-import org.junit.runner.RunWith;
 
 import java.util.stream.IntStream;
 
-@RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/features")
-public class CustomerAddsAProductToHisWishlistTest extends WishlistIntegrationTest {
+public class CustomerAddsAProductToHisWishlistStep {
 
   private Wishlist wishlist;
+  private final WishlistIT wishlistIT;
+
+  public CustomerAddsAProductToHisWishlistStep(WishlistIT wishlistIT) {
+    this.wishlistIT = wishlistIT;
+  }
 
   @When("the Customer adds a product to his wishlist")
   public void the_customer_adds_a_product_to_his_wishlist() {
-    this.wishlist = addProductToWishlist("123456789", "ABC456789").block();
+    this.wishlist = wishlistIT.addProductToWishlist("123456789", "ABC456789").block();
     Assertions.assertNotNull(this.wishlist.wishes());
   }
 
@@ -32,8 +33,8 @@ public class CustomerAddsAProductToHisWishlistTest extends WishlistIntegrationTe
 
   @And("the Customer wishlist cannot exceed 20 items")
   public void the_customer_wishlist_cannot_exceed_20_items() {
-    IntStream.range(1,21).forEach(i -> addProductToWishlist("123456789", CUID.randomCUID2().toString()).block());
-    this.wishlist = retrieveWishlist("123456789").block();
+    IntStream.range(1, 21).forEach(i -> wishlistIT.addProductToWishlist("123456789", CUID.randomCUID2().toString()).block());
+    this.wishlist = wishlistIT.retrieveWishlist("123456789").block();
     Assertions.assertNotNull(this.wishlist.wishes());
     var count = (long) this.wishlist.wishes().size();
     Assertions.assertEquals(20L, count);

@@ -1,22 +1,23 @@
-package io.loezix.ecom.wishlist.api;
+package io.loezix.ecom.wishlist.api.steps;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
+import io.loezix.ecom.wishlist.api.WishlistIT;
 import io.loezix.ecom.wishlist.domain.Wishlist;
 import org.junit.jupiter.api.Assertions;
-import org.junit.runner.RunWith;
 
-@RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/features")
-public class CustomerRemovesAProductFromHisWishListTest extends WishlistIntegrationTest {
+public class CustomerRemovesAProductFromHisWishListStep {
 
   private Wishlist wishlist;
+  private final WishlistIT wishlistIT;
+
+  public CustomerRemovesAProductFromHisWishListStep(WishlistIT wishlistIT) {
+    this.wishlistIT = wishlistIT;
+  }
 
   @When("the Customer removes a product from his wishlist")
   public void the_customer_removes_a_product_from_his_wishlist() {
-    this.wishlist = removeProductFromWishlist("123456789", "ABC456789").block();
+    this.wishlist = wishlistIT.removeProductFromWishlist("123456789", "ABC456789").block();
     Assertions.assertNotNull(this.wishlist.wishes());
   }
 
