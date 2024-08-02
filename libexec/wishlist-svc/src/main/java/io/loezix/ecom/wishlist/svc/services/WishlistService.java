@@ -27,8 +27,9 @@ public class WishlistService extends ReactiveService<CustomerWishlist, WishlistR
    * Adicionar um produto na Wishlist do cliente;
    */
   public Mono<Wishlist> addWishToWishlist(String customerId, String productId) {
-    return repository().addWishToWishlist(customerId, productId)
-      .map(CustomerWishlist::wishlist)
+    return hasProductOnWishlist(customerId, productId)
+      .switchIfEmpty(repository().addWishToWishlist(customerId, productId)
+        .map(CustomerWishlist::wishlist))
       ;
   }
 
