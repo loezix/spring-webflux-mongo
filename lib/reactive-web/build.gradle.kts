@@ -1,6 +1,7 @@
 plugins {
   id("library")
   id("spring-reactive")
+  id("spring-e2e")
 }
 
 dependencies {
