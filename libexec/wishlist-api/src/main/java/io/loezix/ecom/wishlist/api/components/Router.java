@@ -12,10 +12,19 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @Component
 public class Router {
 
+  private final WishlistHandler wishlistHandler;
+
+  public Router(WishlistHandler wishlistHandler) {
+    this.wishlistHandler = wishlistHandler;
+  }
+
   @Bean
   public RouterFunction<ServerResponse> root() {
-    return route().path("/wishlist", r -> r
-        .GET(WishlistHandler::handle)
+    return route().path("/customer/{customerId}/wishlist", r -> r
+        .GET("", wishlistHandler::handleCustomerWishlist)
+        .PATCH("/wishes/add", wishlistHandler::handleAddWishToWishlist)
+        .PATCH("/wishes/remove", wishlistHandler::handleRemoveWishFromWishlist)
+        .GET("/wishes/hasWishedProduct", wishlistHandler::handleHasProductOnWishlist)
       )
       .resources("/**", new ClassPathResource("public/"))
       .build()
