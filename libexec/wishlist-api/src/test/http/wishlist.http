@@ -1,7 +1,26 @@
-# Adicionar um produto na Wishlist do cliente;
-# Remover um produto da Wishlist do cliente;
+
+### customerWishlist
 # Consultar todos os produtos da Wishlist do cliente;
-GET http://localhost:8080/wishlist
+GET http://localhost:8080/customer/123456789/wishlist
+
+### addWishToWIshlist
+# Adicionar um produto na Wishlist do cliente;
+PATCH http://localhost:8080/customer/123456789/wishlist/wishes/add
+content-type: application/json
+
+{
+  "productId": "123456"
+}
+
+### removeWishFromWIshlist
+# Remover um produto da Wishlist do cliente;
+PATCH http://localhost:8080/customer/123456789/wishlist/wishes/remove
+content-type: application/json
+
+{
+  "productId": "123456"
+}
+
+### hasWishedProduct ?
 # Consultar se um determinado produto está na Wishlist do cliente;
-
-
+GET http://localhost:8080/customer/123456789/wishlist/wishes/hasWishedProduct?productId=987654321

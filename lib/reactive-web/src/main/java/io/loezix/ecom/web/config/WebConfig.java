@@ -20,7 +20,7 @@ public class WebConfig implements WebFluxConfigurer {
         .allowedOrigins(mapping.getOrigins().toArray(new String[0]))
         .allowedMethods(mapping.getMethods().toArray(new String[0]))
         .allowedHeaders(mapping.getAllowedHeaders().toArray(new String[0]))
-        .allowedHeaders(mapping.getExposedHeaders().toArray(new String[0]))
+        .exposedHeaders(mapping.getExposedHeaders().toArray(new String[0]))
         .allowCredentials(mapping.getAllowCredentials())
         .maxAge(mapping.getMaxAge());
     });

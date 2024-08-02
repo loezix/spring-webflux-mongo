@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(classes = Main.class)
-class WishlistTest {
+class WishlistApiTest {
 
   @Autowired
   private Router router;
@@ -18,7 +18,7 @@ class WishlistTest {
       .build()
 
       .get()
-      .uri("/wishlist")
+      .uri("/customer/123456789/wishlist")
       .exchange()
       .expectStatus()
       .isOk();
