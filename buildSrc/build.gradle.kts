@@ -9,5 +9,6 @@ repositories {
 }
 
 dependencies {
-  implementation("org.springframework.boot:spring-boot-gradle-plugin:${providers.systemProperty("spring.boot.version").get()}")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${providers.systemProperty("kotlin.version").get()}")
+  implementation("org.openapitools:openapi-generator-gradle-plugin:${providers.systemProperty("openapi.generator.version").get()}")
 }

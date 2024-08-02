@@ -1,10 +1,11 @@
 plugins {
   id("library")
-  id("org.springframework.boot")
 }
 
 dependencies {
   api(platform("org.springframework.boot:spring-boot-dependencies:${providers.gradleProperty("spring.boot.version").get()}"))
   api("org.springframework.boot:spring-boot-starter")
-  testImplementation("org.springframework.boot:spring-boot-starter-test")
+  api("org.springframework.boot:spring-boot-starter-actuator")
+  testFixturesApi("org.springframework.boot:spring-boot-starter-test")
+  annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:${providers.gradleProperty("spring.boot.version").get()}")
 }

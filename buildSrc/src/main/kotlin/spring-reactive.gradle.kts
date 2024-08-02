@@ -4,5 +4,5 @@ plugins {
 
 dependencies {
   api("org.springframework.boot:spring-boot-starter-webflux")
-  testImplementation("io.projectreactor:reactor-test")
+  testFixturesApi("io.projectreactor:reactor-test")
 }
