@@ -1,0 +1,20 @@
+ecom:
+  web:
+    cors:
+      mappings:
+        - path: "/**"
+          origins:
+            - "*"
+          methods:
+            - "GET"
+            - "PATCH"
+            - "OPTIONS"
+          allowed-headers:
+            - "*"
+          exposed-headers:
+            - "*"
+          allow-credentials: false
+          maxAge: 3600
+  data:
+    database: "wishlist"
+    connection-string: "mongodb://root:root@mongo.lzx.corp:27017"
