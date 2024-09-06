@@ -1,4 +1,4 @@
-rootProject.name = "wishlist"
+rootProject.name = "spring-webflux-mongo"
 
 val buildFiles = fileTree(rootDir) {
   val excludes = gradle.startParameter.projectProperties["excludeProjects"]?.split(",")
