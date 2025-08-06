@@ -1,6 +1,5 @@
 plugins {
   id("library")
-  id("binary")
 }
 
 dependencies {
